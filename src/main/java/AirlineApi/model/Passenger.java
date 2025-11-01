@@ -1,4 +1,4 @@
-package com.sprintweek.airlineapi.model;
+package AirlineApi.model;
 
 import jakarta.persistence.*;
 import java.util.List;
