@@ -1,7 +1,7 @@
-package AirlineApi.service;
+package airlineapi.service;
 
-import AirlineApi.model.City;
-import AirlineApi.repository.CityRepository;
+import airlineapi.model.City;
+import airlineapi.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

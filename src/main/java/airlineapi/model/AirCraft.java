@@ -1,4 +1,4 @@
-package AirlineApi.model;
+package airlineapi.model;
 
 import jakarta.persistence.*;
 import java.util.List;

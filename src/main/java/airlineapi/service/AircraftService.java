@@ -1,7 +1,7 @@
 package AirlineApi.service;
 
-import AirlineApi.model.Aircraft;
-import AirlineApi.repository.AircraftRepository;
+import airlineapi.model.Aircraft;
+import airlineapi.repository.AircraftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

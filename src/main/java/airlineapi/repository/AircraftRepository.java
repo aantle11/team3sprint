@@ -1,6 +1,6 @@
-package AirlineApi.repository;
+package airlineapi.repository;
 
-import AirlineApi.model.Aircraft;
+import airlineapi.model.Aircraft;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
