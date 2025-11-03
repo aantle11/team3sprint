@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/airports")
+@RequestMapping("/airports")
 public class AirportController {
 
     @Autowired
@@ -25,13 +25,13 @@ public class AirportController {
     }
 
     @PostMapping
-    public Airport createAirport(@RequestBody Airport airport) {
-        return airportService.createAirport(airport);
+    public Airport addAirport(@RequestBody Airport airport) {
+        return airportService.addAirport(airport);
     }
 
     @PutMapping("/{id}")
-    public Airport updateAirport(@PathVariable Long id, @RequestBody Airport airportDetails) {
-        return airportService.updateAirport(id, airportDetails);
+    public Airport updateAirport(@PathVariable Long id, @RequestBody Airport airport) {
+        return airportService.updateAirport(id, airport);
     }
 
     @DeleteMapping("/{id}")

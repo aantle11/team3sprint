@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CityService {
@@ -14,26 +13,31 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    // Get all cities
     public List<City> getAllCities() {
         return cityRepository.findAll();
     }
 
-    public Optional<City> getCityById(Long id) {
-        return cityRepository.findById(id);
+    // Get city by ID (unwrap Optional)
+    public City getCityById(Long id) {
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("City not found with id " + id));
     }
 
-    public City addCity(City city) {
+    // Create new city
+    public City createCity(City city) {
         return cityRepository.save(city);
     }
 
-    public City updateCity(Long id, City cityDetails) {
-        City city = cityRepository.findById(id).orElseThrow();
-        city.setName(cityDetails.getName());
-        city.setState(cityDetails.getState());
-        city.setPopulation(cityDetails.getPopulation());
+    // Update city
+    public City updateCity(Long id, City details) {
+        City city = getCityById(id); // reuse method above
+        city.setName(details.getName());
+        city.setCountry(details.getCountry());
         return cityRepository.save(city);
     }
 
+    // Delete city
     public void deleteCity(Long id) {
         cityRepository.deleteById(id);
     }

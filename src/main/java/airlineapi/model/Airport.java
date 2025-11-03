@@ -17,7 +17,7 @@ public class Airport {
     private City city;
 
     @ManyToMany(mappedBy = "airports")
-    private List<AirCraft> aircraft;
+    private List<Aircraft> aircraft; // ✅ match filename Aircraft.java
 
     public Airport() {}
 
@@ -27,7 +27,6 @@ public class Airport {
         this.city = city;
     }
 
-    // Getters & Setters
     public Long getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

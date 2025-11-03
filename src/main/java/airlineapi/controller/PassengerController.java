@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/passengers")
@@ -20,13 +21,13 @@ public class PassengerController {
     }
 
     @GetMapping("/{id}")
-    public Passenger getPassengerById(@PathVariable Long id) {
+    public Optional<Passenger> getPassengerById(@PathVariable Long id) {
         return passengerService.getPassengerById(id);
     }
 
     @PostMapping
-    public Passenger createPassenger(@RequestBody Passenger passenger) {
-        return passengerService.createPassenger(passenger);
+    public Passenger addPassenger(@RequestBody Passenger passenger) {
+        return passengerService.addPassenger(passenger);
     }
 
     @PutMapping("/{id}")
