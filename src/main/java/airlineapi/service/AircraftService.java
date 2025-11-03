@@ -1,41 +1,29 @@
-package AirlineApi.service;
+package airlineapi.service;
 
 import airlineapi.model.Aircraft;
 import airlineapi.repository.AircraftRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AircraftService {
+    private final AircraftRepository repo;
 
-    @Autowired
-    private AircraftRepository aircraftRepository;
-
-    public List<Aircraft> getAllAircraft() {
-        return aircraftRepository.findAll();
+    public AircraftService(AircraftRepository repo) {
+        this.repo = repo;
     }
 
-    public Optional<Aircraft> getAircraftById(Long id) {
-        return aircraftRepository.findById(id);
+    public List<Aircraft> getAll() { return repo.findAll(); }
+    public Aircraft getById(Long id) { return repo.findById(id).orElseThrow(); }
+    public Aircraft create(Aircraft a) { return repo.save(a); }
+    public Aircraft update(Long id, Aircraft details) {
+        Aircraft x = getById(id);
+        x.setType(details.getType());
+        x.setAirlineName(details.getAirlineName());
+        x.setNumberOfPassengers(details.getNumberOfPassengers());
+        x.setAirports(details.getAirports());
+        return repo.save(x);
     }
-
-    public Aircraft addAircraft(Aircraft aircraft) {
-        return aircraftRepository.save(aircraft);
-    }
-
-    public Aircraft updateAircraft(Long id, Aircraft details) {
-        Aircraft aircraft = aircraftRepository.findById(id).orElseThrow();
-        aircraft.setType(details.getType());
-        aircraft.setAirlineName(details.getAirlineName());
-        aircraft.setNumberOfPassengers(details.getNumberOfPassengers());
-        return aircraftRepository.save(aircraft);
-    }
-
-    public void deleteAircraft(Long id) {
-        aircraftRepository.deleteById(id);
-    }
+    public void delete(Long id) { repo.deleteById(id); }
 }
-

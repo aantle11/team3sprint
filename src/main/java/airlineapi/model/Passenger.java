@@ -13,10 +13,12 @@ public class Passenger {
     private String lastName;
     private String phoneNumber;
 
+    // Passenger lives in one city
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
+    // Passenger can fly many aircraft
     @ManyToMany
     @JoinTable(
             name = "passenger_aircraft",
@@ -34,7 +36,6 @@ public class Passenger {
         this.city = city;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }

@@ -13,6 +13,7 @@ public class Aircraft {
     private String airlineName;
     private int numberOfPassengers;
 
+    // Many-to-many between aircraft and airports (aircraft can use many airports)
     @ManyToMany
     @JoinTable(
             name = "aircraft_airport",
@@ -21,6 +22,7 @@ public class Aircraft {
     )
     private List<Airport> airports;
 
+    // Many-to-many with passengers (passengers can fly many aircraft)
     @ManyToMany(mappedBy = "aircraft")
     private List<Passenger> passengers;
 
@@ -32,7 +34,6 @@ public class Aircraft {
         this.numberOfPassengers = numberOfPassengers;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }

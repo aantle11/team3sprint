@@ -1,8 +1,8 @@
 package airlineapi.controller;
 
+import airlineapi.model.Airport;
 import airlineapi.model.City;
 import airlineapi.service.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,32 +10,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cities")
 public class CityController {
+    private final CityService service;
 
-    @Autowired
-    private CityService cityService;
+    public CityController(CityService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<City> getAllCities() {
-        return cityService.getAllCities();
-    }
+    public List<City> getAll() { return service.getAll(); }
 
     @GetMapping("/{id}")
-    public City getCityById(@PathVariable Long id) {
-        return cityService.getCityById(id);
-    }
+    public City getById(@PathVariable Long id) { return service.getById(id); }
 
     @PostMapping
-    public City createCity(@RequestBody City city) {
-        return cityService.createCity(city);
-    }
+    public City create(@RequestBody City city) { return service.create(city); }
 
     @PutMapping("/{id}")
-    public City updateCity(@PathVariable Long id, @RequestBody City cityDetails) {
-        return cityService.updateCity(id, cityDetails);
-    }
+    public City update(@PathVariable Long id, @RequestBody City details) { return service.update(id, details); }
 
     @DeleteMapping("/{id}")
-    public void deleteCity(@PathVariable Long id) {
-        cityService.deleteCity(id);
+    public void delete(@PathVariable Long id) { service.delete(id); }
+
+    // Q1: What airports are there in each city?
+    @GetMapping("/{id}/airports")
+    public List<Airport> airportsInCity(@PathVariable Long id) {
+        return service.getById(id).getAirports();
     }
 }

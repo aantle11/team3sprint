@@ -1,41 +1,39 @@
 package airlineapi.controller;
 
 import airlineapi.model.Aircraft;
+import airlineapi.model.Airport;
 import airlineapi.service.AircraftService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/aircrafts")
+@RequestMapping("/api/aircraft")
 public class AircraftController {
+    private final AircraftService service;
 
-    @Autowired
-    private AircraftService aircraftService;
+    public AircraftController(AircraftService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Aircraft> getAllAircraft() {
-        return aircraftService.getAllAircraft();
-    }
+    public List<Aircraft> getAll() { return service.getAll(); }
 
     @GetMapping("/{id}")
-    public Aircraft getAircraftById(@PathVariable Long id) {
-        return aircraftService.getAircraftById(id);
-    }
+    public Aircraft getById(@PathVariable Long id) { return service.getById(id); }
 
     @PostMapping
-    public Aircraft createAircraft(@RequestBody Aircraft aircraft) {
-        return aircraftService.createAircraft(aircraft);
-    }
+    public Aircraft create(@RequestBody Aircraft aircraft) { return service.create(aircraft); }
 
     @PutMapping("/{id}")
-    public Aircraft updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraftDetails) {
-        return aircraftService.updateAircraft(id, aircraftDetails);
-    }
+    public Aircraft update(@PathVariable Long id, @RequestBody Aircraft details) { return service.update(id, details); }
 
     @DeleteMapping("/{id}")
-    public void deleteAircraft(@PathVariable Long id) {
-        aircraftService.deleteAircraft(id);
+    public void delete(@PathVariable Long id) { service.delete(id); }
+
+    // Q3: What airports do aircraft take off from and land at?
+    @GetMapping("/{id}/airports")
+    public List<Airport> airportsForAircraft(@PathVariable Long id) {
+        return service.getById(id).getAirports();
     }
 }

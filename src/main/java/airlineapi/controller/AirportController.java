@@ -2,7 +2,6 @@ package airlineapi.controller;
 
 import airlineapi.model.Airport;
 import airlineapi.service.AirportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,32 +9,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/airports")
 public class AirportController {
+    private final AirportService service;
 
-    @Autowired
-    private AirportService airportService;
+    public AirportController(AirportService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Airport> getAllAirports() {
-        return airportService.getAllAirports();
-    }
+    public List<Airport> getAll() { return service.getAll(); }
 
     @GetMapping("/{id}")
-    public Airport getAirportById(@PathVariable Long id) {
-        return airportService.getAirportById(id);
-    }
+    public Airport getById(@PathVariable Long id) { return service.getById(id); }
 
     @PostMapping
-    public Airport createAirport(@RequestBody Airport airport) {
-        return airportService.createAirport(airport);
-    }
+    public Airport create(@RequestBody Airport airport) { return service.create(airport); }
 
     @PutMapping("/{id}")
-    public Airport updateAirport(@PathVariable Long id, @RequestBody Airport airportDetails) {
-        return airportService.updateAirport(id, airportDetails);
-    }
+    public Airport update(@PathVariable Long id, @RequestBody Airport details) { return service.update(id, details); }
 
     @DeleteMapping("/{id}")
-    public void deleteAirport(@PathVariable Long id) {
-        airportService.deleteAirport(id);
-    }
+    public void delete(@PathVariable Long id) { service.delete(id); }
 }

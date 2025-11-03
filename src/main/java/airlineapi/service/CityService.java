@@ -2,39 +2,27 @@ package airlineapi.service;
 
 import airlineapi.model.City;
 import airlineapi.repository.CityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CityService {
+    private final CityRepository repo;
 
-    @Autowired
-    private CityRepository cityRepository;
-
-    public List<City> getAllCities() {
-        return cityRepository.findAll();
+    public CityService(CityRepository repo) {
+        this.repo = repo;
     }
 
-    public Optional<City> getCityById(Long id) {
-        return cityRepository.findById(id);
+    public List<City> getAll() { return repo.findAll(); }
+    public City getById(Long id) { return repo.findById(id).orElseThrow(); }
+    public City create(City c) { return repo.save(c); }
+    public City update(Long id, City details) {
+        City x = getById(id);
+        x.setName(details.getName());
+        x.setState(details.getState());
+        x.setPopulation(details.getPopulation());
+        return repo.save(x);
     }
-
-    public City addCity(City city) {
-        return cityRepository.save(city);
-    }
-
-    public City updateCity(Long id, City cityDetails) {
-        City city = cityRepository.findById(id).orElseThrow();
-        city.setName(cityDetails.getName());
-        city.setState(cityDetails.getState());
-        city.setPopulation(cityDetails.getPopulation());
-        return cityRepository.save(city);
-    }
-
-    public void deleteCity(Long id) {
-        cityRepository.deleteById(id);
-    }
+    public void delete(Long id) { repo.deleteById(id); }
 }

@@ -1,0 +1,3 @@
+2025-11-02 22:36:02.242984-03:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PASSENGER_AIRCRAFT" not found (this database is empty); SQL statement:
+DELETE FROM passenger_aircraft [42104-224]

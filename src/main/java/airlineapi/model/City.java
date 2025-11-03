@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +13,11 @@ public class City {
     private String state;
     private int population;
 
+    // A city has many airports
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Airport> airports;
+
+    public City() {} // REQUIRED by JPA
 
     public City(String name, String state, int population) {
         this.name = name;
@@ -23,7 +25,6 @@ public class City {
         this.population = population;
     }
 
-    // Getters & Setters
     public Long getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -1,3 +1,4 @@
+// src/main/java/airlineapi/model/Airport.java
 package airlineapi.model;
 
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ public class Airport {
     private City city;
 
     @ManyToMany(mappedBy = "airports")
-    private List<AirCraft> aircraft;
+    private List<Aircraft> aircraft; // <-- must be Aircraft (not AirCraft)
 
     public Airport() {}
 
@@ -27,7 +28,6 @@ public class Airport {
         this.city = city;
     }
 
-    // Getters & Setters
     public Long getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

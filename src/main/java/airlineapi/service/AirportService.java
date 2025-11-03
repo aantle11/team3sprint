@@ -1,40 +1,29 @@
-package AirlineApi.service;
+package airlineapi.service;
 
 import airlineapi.model.Airport;
 import airlineapi.repository.AirportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AirportService {
+    private final AirportRepository repo;
 
-    @Autowired
-    private AirportRepository airportRepository;
-
-    public List<Airport> getAllAirports() {
-        return airportRepository.findAll();
+    public AirportService(AirportRepository repo) {
+        this.repo = repo;
     }
 
-    public Optional<Airport> getAirportById(Long id) {
-        return airportRepository.findById(id);
+    public List<Airport> getAll() { return repo.findAll(); }
+    public Airport getById(Long id) { return repo.findById(id).orElseThrow(); }
+    public Airport create(Airport a) { return repo.save(a); }
+    public Airport update(Long id, Airport details) {
+        Airport x = getById(id);
+        x.setName(details.getName());
+        x.setCode(details.getCode());
+        x.setCity(details.getCity());
+        x.setAircraft(details.getAircraft());
+        return repo.save(x);
     }
-
-    public Airport addAirport(Airport airport) {
-        return airportRepository.save(airport);
-    }
-
-    public Airport updateAirport(Long id, Airport details) {
-        Airport airport = airportRepository.findById(id).orElseThrow();
-        airport.setName(details.getName());
-        airport.setCode(details.getCode());
-        airport.setCity(details.getCity());
-        return airportRepository.save(airport);
-    }
-
-    public void deleteAirport(Long id) {
-        airportRepository.deleteById(id);
-    }
+    public void delete(Long id) { repo.deleteById(id); }
 }
